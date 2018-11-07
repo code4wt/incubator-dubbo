@@ -15,30 +15,27 @@
  * limitations under the License.
  */
 
-package com.alibaba.dubbo.monitor;
+package org.apache.dubbo.common.utils;
 
-import org.apache.dubbo.common.URL;
+import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertTrue;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import org.junit.Test;
 
-@Deprecated
-public interface Monitor extends org.apache.dubbo.monitor.Monitor {
+public class ArrayUtilsTest {
 
-    @Override
-    com.alibaba.dubbo.common.URL getUrl();
-
-    void collect(com.alibaba.dubbo.common.URL statistics);
-
-    List<com.alibaba.dubbo.common.URL> lookup(com.alibaba.dubbo.common.URL query);
-
-    @Override
-    default void collect(URL statistics) {
-        this.collect(new com.alibaba.dubbo.common.URL(statistics));
+    @Test
+    public void isEmpty() throws Exception {
+        assertTrue(ArrayUtils.isEmpty(null));
+        assertTrue(ArrayUtils.isEmpty(new Object[0]));
+        assertFalse(ArrayUtils.isEmpty(new Object[]{"abc"}));
     }
 
-    @Override
-    default List<URL> lookup(URL query) {
-        return this.lookup(new com.alibaba.dubbo.common.URL(query)).stream().map(url -> url.getOriginalURL()).collect(Collectors.toList());
+    @Test
+    public void isNotEmpty() throws Exception {
+        assertFalse(ArrayUtils.isNotEmpty(null));
+        assertFalse(ArrayUtils.isNotEmpty(new Object[0]));
+        assertTrue(ArrayUtils.isNotEmpty(new Object[]{"abc"}));
     }
+
 }

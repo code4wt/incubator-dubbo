@@ -15,30 +15,33 @@
  * limitations under the License.
  */
 
-package com.alibaba.dubbo.monitor;
+package org.apache.dubbo.common.utils;
 
-import org.apache.dubbo.common.URL;
+/**
+ * Contains some methods to check array.
+ */
+public final class ArrayUtils {
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-@Deprecated
-public interface Monitor extends org.apache.dubbo.monitor.Monitor {
-
-    @Override
-    com.alibaba.dubbo.common.URL getUrl();
-
-    void collect(com.alibaba.dubbo.common.URL statistics);
-
-    List<com.alibaba.dubbo.common.URL> lookup(com.alibaba.dubbo.common.URL query);
-
-    @Override
-    default void collect(URL statistics) {
-        this.collect(new com.alibaba.dubbo.common.URL(statistics));
+    private ArrayUtils() {
     }
 
-    @Override
-    default List<URL> lookup(URL query) {
-        return this.lookup(new com.alibaba.dubbo.common.URL(query)).stream().map(url -> url.getOriginalURL()).collect(Collectors.toList());
+    /**
+     * <p>Checks if the array is null or empty. <p/>
+     *
+     * @param array th array to check
+     * @return {@code true} if the array is null or empty.
+     */
+    public static boolean isEmpty(final Object[] array) {
+        return array == null || array.length == 0;
+    }
+
+    /**
+     * <p>Checks if the array is not null or empty. <p/>
+     *
+     * @param array th array to check
+     * @return {@code true} if the array is not null or empty.
+     */
+    public static boolean isNotEmpty(final Object[] array) {
+        return !isEmpty(array);
     }
 }
